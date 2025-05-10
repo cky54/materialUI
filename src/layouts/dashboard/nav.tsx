@@ -47,10 +47,9 @@ export function NavDesktop({
       sx={{
         pt: 2.5,
         px: 2.5,
-        // top: 0,
         top: 'var(--layout-header-desktop-height)', // 헤더 밑으로 내림
         left: 0,
-        height: 1,
+        height: `calc(100% - var(--layout-header-desktop-height))`,  // 남은 높이만 채우기
         display: 'none',
         position: 'fixed',
         flexDirection: 'column',

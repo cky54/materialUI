@@ -45,9 +45,10 @@ export function LayoutSection({
       >
         {sidebarSection ? (
           <>
+            {headerSection}
             {sidebarSection}
             <LayoutSidebarContainer className={layoutClasses.sidebarContainer}>
-              {headerSection}
+              {/* {headerSection} */}
               {children}
               {footerSection}
             </LayoutSidebarContainer>
