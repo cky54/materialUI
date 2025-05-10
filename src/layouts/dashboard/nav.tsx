@@ -47,7 +47,8 @@ export function NavDesktop({
       sx={{
         pt: 2.5,
         px: 2.5,
-        top: 0,
+        // top: 0,
+        top: 'var(--layout-header-desktop-height)', // 헤더 밑으로 내림
         left: 0,
         height: 1,
         display: 'none',
