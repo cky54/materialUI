@@ -27,6 +27,7 @@ import { NotificationsPopover } from '../components/notifications-popover';
 import type { MainSectionProps } from '../core/main-section';
 import type { HeaderSectionProps } from '../core/header-section';
 import type { LayoutSectionProps } from '../core/layout-section';
+import { TopLevelMenuBar } from '../components/TopLevelMenuBar';
 
 // ----------------------------------------------------------------------
 
@@ -51,6 +52,30 @@ export function DashboardLayout({
 
   const { value: open, onFalse: onClose, onTrue: onOpen } = useBoolean();
 
+  const menuGroups = [
+  {
+    key: 'dashboard',
+    label: 'Dashboard',
+    submenus: [{ label: 'Main', value: 'main' }]
+  },
+  {
+    key: 'reports',
+    label: 'Reports',
+    submenus: [
+      { label: 'Sales', value: 'sales' },
+      { label: 'Customers', value: 'customers' },
+    ]
+  },
+  {
+    key: 'settings',
+    label: 'Settings',
+    submenus: [
+      { label: 'User Management', value: 'user-mgmt' },
+      { label: 'Permissions', value: 'permissions' },
+    ]
+  }
+];
+
   const renderHeader = () => {
     const headerSlotProps: HeaderSectionProps['slotProps'] = {
       container: {
@@ -65,30 +90,13 @@ export function DashboardLayout({
         </Alert>
       ),
       leftArea: (
-        <>
-          {/** @slot Nav mobile */}
-          <MenuButton
-            onClick={onOpen}
-            sx={{ mr: 1, ml: -1, [theme.breakpoints.up(layoutQuery)]: { display: 'none' } }}
+        <TopLevelMenuBar
+          menuGroups={menuGroups}
+          onSelectSubmenu={(submenu) => {
+          console.log('선택된 세부 메뉴:', submenu);
+          }}
           />
-          <NavMobile data={navData} open={open} onClose={onClose} workspaces={_workspaces} />
-        </>
-      ),
-      rightArea: (
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 0, sm: 0.75 } }}>
-          {/** @slot Searchbar */}
-          <Searchbar />
-
-          {/** @slot Language popover */}
-          <LanguagePopover data={_langs} />
-
-          {/** @slot Notifications popover */}
-          <NotificationsPopover data={_notifications} />
-
-          {/** @slot Account drawer */}
-          <AccountPopover data={_account} />
-        </Box>
-      ),
+      )
     };
 
     return (
